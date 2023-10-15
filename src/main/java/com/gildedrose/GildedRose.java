@@ -1,61 +1,63 @@
+
 package com.gildedrose;
 
 class GildedRose {
-  Item[] items; // Tableau d'objets Item
+  Item[] items;
 
   public GildedRose(Item[] items) {
-    this.items = items; // Initialise le tableau d'objets Item dans le constructeur
+    this.items = items;
   }
 
   public void updateQuality() {
     for (Item item : items) {
-      updateItemQuality(item); // Appelle la méthode updateItemQuality pour chaque élément dans le tableau
+      updateItemQuality(item);
     }
   }
 
   private void updateItemQuality(Item item) {
     if (item.name.equals("Aged Brie")) {
-      increaseQuality(item); // Augmente la qualité de l'objet Aged Brie
+      increaseQuality(item);
     } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-      increaseQuality(item); // Augmente la qualité de l'objet Backstage Passes
+      increaseQuality(item);
       if (item.sellIn < 11) {
-        increaseQuality(item); // Augmente à nouveau la qualité si la date de vente est inférieure à 11
+        increaseQuality(item);
       }
       if (item.sellIn < 6) {
-        increaseQuality(item); // Augmente à nouveau la qualité si la date de vente est inférieure à 6
+        increaseQuality(item);
       }
     } else if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-      decreaseQuality(item); // Diminue la qualité pour tous les autres objets, sauf Sulfuras
+      decreaseQuality(item,1);
     }
 
-    decreaseSellIn(item); // Diminue la date de vente pour tous les objets, sauf Sulfuras
+    decreaseSellIn(item);
 
     if (item.sellIn < 0) {
       if (item.name.equals("Aged Brie")) {
-        increaseQuality(item); // Si la date de vente est passée pour Aged Brie, augmente la qualité
+        increaseQuality(item);
       } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-        item.quality = 0; // Si la date de vente est passée pour Backstage Passes, la qualité tombe à 0
+        item.quality = 0;
       } else if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-        decreaseQuality(item); // Diminue la qualité pour tous les autres objets si la date de vente est passée
+        decreaseQuality(item,1);
       }
-    }
-  }
-
-  private void decreaseSellIn(Item item) {
-    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
-      item.sellIn--; // Diminue la date de vente pour tous les objets, sauf Sulfuras
-    }
-  }
-
-  private void decreaseQuality(Item item) {
-    if (item.quality > 0) {
-      item.quality--; // Diminue la qualité, mais garde la qualité minimale à 0
     }
   }
 
   private void increaseQuality(Item item) {
     if (item.quality < 50) {
-      item.quality++; // Augmente la qualité, mais garde la qualité maximale à 50
+      item.quality++;
+    }
+  }
+
+  private void decreaseSellIn(Item item) {
+    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+      item.sellIn--;
+    }
+  }
+
+
+  private void decreaseQuality(Item item, Integer pas) {
+    if (item.quality > 0) {
+      item.quality = item.quality - pas; // Diminue la qualité, mais garde la qualité minimale à 0
     }
   }
 }

@@ -244,6 +244,7 @@ class GildedRoseTest {
     assertEquals(40, sulfuras.quality, "Quality should remain the same");
   }
 
+
   ///////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////Mutation////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////
@@ -275,23 +276,6 @@ class GildedRoseTest {
     // Verify that the quality of the item increases by 2.
     assertEquals(42, backstagePasses.quality, "Quality should increment by 2");
   }
-
-  @Test
-  @DisplayName("Quality Decreases When SellIn Is Zero")
-  void testQualityDecreasesWhenSellInIsZero() {
-    // Create an item with a sellIn date of 0.
-    Item item = new Item("Regular Item", 0, 0);
-
-    // Create an instance of GildedRose with the item.
-    GildedRose app = new GildedRose(new Item[] { item });
-
-    // Call updateQuality to update the item's quality.
-    app.updateQuality();
-
-    // Verify that the quality of the item decreases by 1 when sellIn is zero.
-    assertEquals(0, item.quality, "Quality should decrement by 1");
-  }
-
   @Test
   @DisplayName("Mutation Test: Quality Decrement When SellIn Is Zero")
   void mutationTestQualityDecrementWhenSellInIsZero() {
@@ -307,5 +291,19 @@ class GildedRoseTest {
     // Verify that the quality of the item decreases by 2 (correcting the test).
     assertEquals(39, item.quality, "Quality should decrement by 2");
   }
+  @Test
+  @DisplayName("Quality Decreases When SellIn Is Zero")
+  void testQualityDecreasesWhenSellInIsZero() {
+    // Create an item with a sellIn date of 0.
+    Item item = new Item("Regular Item", 0, 0);
 
+    // Create an instance of GildedRose with the item.
+    GildedRose app = new GildedRose(new Item[]{item});
+
+    // Call updateQuality to update the item's quality.
+    app.updateQuality();
+
+    // Verify that the quality of the item decreases by 1 when sellIn is zero.
+    assertEquals(0, item.quality, "Quality should decrement by 1");
+  }
 }
