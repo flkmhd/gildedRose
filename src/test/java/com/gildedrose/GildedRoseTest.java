@@ -243,6 +243,39 @@ class GildedRoseTest {
     app.updateQuality();
     assertEquals(40, sulfuras.quality, "Quality should remain the same");
   }
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////Test Parite 4///////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  @Test
+  @DisplayName("Test quality decrement for Conjured Beer")
+  void testQualityDecrementForConjuredBeer() {
+    // Créez un article "Conjured Beer" avec une qualité initiale de 20 et une date de vente de 5 jours.
+    Item conjuredBeer = new Item("Conjured Beer", 5, 20);
+
+    // Créez une instance de GildedRose avec l'article.
+    GildedRose app = new GildedRose(new Item[] {conjuredBeer});
+
+    // Appelez updateQuality pour mettre à jour la qualité de l'article.
+    app.updateQuality();
+
+    // Vérifiez que la qualité de l'article a été décrémentée de 2.
+    assertEquals(18, conjuredBeer.quality, "Quality should decrement by 2");
+  }
+  @Test
+  @DisplayName("Test quality decrement for 'Conjured Beer' when sellIn is negative")
+  void testQualityDecrementForConjuredBeerWhenSellInIsNegative() {
+    // Créez un article "Conjured Beer" avec une qualité initiale de 20 et une date de vente de -1 (passée).
+    Item conjuredBeer = new Item("Conjured Beer", -1, 20);
+
+    // Créez une instance de GildedRose avec l'article.
+    GildedRose app = new GildedRose(new Item[] {conjuredBeer});
+
+    // Appelez updateQuality pour mettre à jour la qualité de l'article.
+    app.updateQuality();
+
+    // Vérifiez que la qualité de l'article a été décrémentée de 4 lorsque sellIn est négatif.
+    assertEquals(16, conjuredBeer.quality, "Quality should decrement by 4 when sellIn is negative");
+  }
 
 
   ///////////////////////////////////////////////////////////////////////////////////////
